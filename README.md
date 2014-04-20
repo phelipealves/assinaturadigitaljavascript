@@ -6,3 +6,4 @@ Assinatura Digital via JavaScript
 * Criar uma página por meio da qual se seleciona um documento e outras informações necessárias para que o documento seja assinado digitalmente. 
 * No sentido inverso, a página deverá, ao receber um documento assinado, verificar a assinatura do mesmo.  
 * É possível e provável a interação com leitor de token contendo o certificado digital empregado para assinar o documento e, neste caso, devem ser observadas as recomendações do ICP-Brasil, se for o caso. Isto se aplica a padrões, dispositivos possíveis e outros.
+
