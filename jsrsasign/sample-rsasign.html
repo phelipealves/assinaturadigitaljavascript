@@ -1,6 +1,7 @@
 <html>
 <head>
-<title>Sample Application for RSA signing in JavaScript</title>
+<meta charset="utf-8">
+<title>Assinatura digital de um arquivo</title>
 <script language="JavaScript" type="text/javascript" src="ext/jsbn.js"></script>
 <script language="JavaScript" type="text/javascript" src="ext/jsbn2.js"></script>
 <script language="JavaScript" type="text/javascript" src="ext/rsa.js"></script>
@@ -27,7 +28,7 @@ function doSign() {
   var rsa = new RSAKey();
   rsa.readPrivateKeyFromPEMString(document.form1.prvkey1.value);
   var hashAlg = document.form1.hashalg.value;
-  var hSig = rsa.signString(document.form1.msgsigned.value, hashAlg);
+  var hSig = rsa.signString(document.form1.base64textarea.value, hashAlg);
   document.form1.siggenerated.value = linebrk(hSig, 64);
 }
 
@@ -49,7 +50,7 @@ function doVerify() {
 
 function copyMsgAndSig() {
   _displayStatus("reset");
-  document.form1.msgverified.value = document.form1.msgsigned.value; 
+  document.form1.msgverified.value = document.form1.base64textarea.value; 
   document.form1.sigverified.value = document.form1.siggenerated.value; 
 }
 
@@ -73,15 +74,15 @@ TD  {vertical-align: top}
 </style>
 </head>
 <body>
-<h1>Sample Application for RSA signing in JavaScript</h1>
+<h1>Assinatura digital de um arquivo</h1>
 
 <form name="form1">
 <table border="0">
-<tr><th>Signer</th><th></th><th>Verifier</th></tr>
+<tr><th>Assinar</th><th></th><th>Verificar</th></tr>
 
 <tr>
 <td>
-PEM RSA Private Key<br/>
+Chave privada PEM RSA<br/>
 <textarea name="prvkey1" rows="10" cols="65">
 -----BEGIN RSA PRIVATE KEY-----
 MIICWwIBAAKBgQDRhGF7X4A0ZVlEg594WmODVVUIiiPQs04aLmvfg8SborHss5gQ
@@ -99,12 +100,44 @@ Ma1qZvT/cigmdbAh7wJAQNXyoizuGEltiSaBXx4H29EdXNYWDJ9SS5f070BRbAIl
 dqRh3rcNvpY6BKJqFapda1DjdcncZECMizT/GMrc1w==
 -----END RSA PRIVATE KEY-----
 </textarea><br/>
-Text message to be signed.<br/>
-<input type="text" name="msgsigned" size="100" value="aaa"/><br/>
+
+<!-- ================================================================================== -->
+<div>
+  <label for="filePicker">Selecione o arquivo:</label><br>
+  <input type="file" id="filePicker">
+</div>
+<div>
+  <h1>Arquivo</h1>
+  <textarea id="base64textarea" placeholder="Base64 will appear here" cols="50" rows="15"></textarea>
+</div>
+<!-- Script --> 
+<script>
+var handleFileSelect = function(evt) {
+    var files = evt.target.files;
+    var file = files[0];
+
+    if (files && file) {
+        var reader = new FileReader();
+
+        reader.onload = function(readerEvt) {
+            var binaryString = readerEvt.target.result;
+            document.getElementById("base64textarea").value = btoa(binaryString);
+        };
+
+        reader.readAsBinaryString(file);
+    }
+};
+
+if (window.File && window.FileReader && window.FileList && window.Blob) {
+    document.getElementById('filePicker').addEventListener('change', handleFileSelect, false);
+} else {
+    alert('The File APIs are not fully supported in this browser.');
+}
+</script>
 </td>
 <td></td>
 <td>
-Verification Result
+Resultado da verificação
 <div id="verifyresult" style="background: yellow">Please fill values below and push "Verify this sigunature" button.</div>
 </td>
 </tr>
@@ -118,34 +151,34 @@ Verification Result
 <option value="md5">MD5
 <option value="ripemd160">RIPEMD-160
 </select>
-<input type="button" value="Sign to this message &darr;" onClick="doSign();"/><br/>
+<input type="button" value="Assinar o arquivo &darr;" onClick="doSign();"/><br/>
+</td>
+
+<!-- ============================================================================================ -->
+<td>
+<input type="button" value="Copiar &rarr;" onClick="copyMsgAndSig();"/><br/>
 </td>
 <td>
-<input type="button" value="Copy &rarr;" onClick="copyMsgAndSig();"/><br/>
-</td>
-<td>
-<input type="button" value="Verify this signature &uarr;" onClick="doVerify();"/><br/>
+<input type="button" value="Verificar Assinatura &uarr;" onClick="doVerify();"/><br/>
 </td>
 </tr>
-
 <tr>
 <td>
-Generated Signature<br/>
+Assinatura do arquivo gerada<br/>
 <textarea name="siggenerated" rows="4" cols="65"></textarea>
 </td>
 <td>
 </td>
 <td>
-Verifying Signature<br/>
+
+Verificando a assinatura<br/>
 <textarea name="sigverified" rows="4" cols="65">
-6f7df91d8f973a0619d525c319337741130b77b21f9667dc7d1d74853b644cbe
-5e6b0e84aacc2faee883d43affb811fc653b67c38203d4f206d1b838c4714b6b
-2cf17cd621303c21bac96090df3883e58784a0576e501c10cdefb12b6bf887e5
-48f6b07b09ae80d8416151d7dab7066d645e2eee57ac5f7af2a70ee0724c8e47
 </textarea><br/>
-Text message to be verified.<br/>
-<input type="text" name="msgverified" size="100" value="aaa"/><br/>
-Signer's Public Key Certificate.<br/>
+
+Arquivo a ser verificado.<br/>
+<textarea name="msgverified" rows="10" cols="65"></textarea><br>
+
+Certificado de chave pública.<br/>
 <textarea name="cert" rows="10" cols="65">
 -----BEGIN CERTIFICATE-----
 MIIBvTCCASYCCQD55fNzc0WF7TANBgkqhkiG9w0BAQUFADAjMQswCQYDVQQGEwJK
@@ -165,62 +198,5 @@ LyhP+OoOTmETMegAVQMq71choVJyOFE5BtQa6M/lCHEOya5QUfoRF2HF9EjRF44K
 
 </table>
 </form>
-
-<h3>How to sign and verify a text message (simple usage)</h3>
-<ol>
-<li>Modify the text message 'aaa' to anything you want.</li>
-<li>Choose hash algorithm for signing 'SHA1' or 'SHA256'.</li>
-<li>Push 'Sign to this message' button in the left.</li>
-<li>Push 'Copy' button in the middle to copy the message to be signed and the generated signature value to verification form in the right.</li>
-<li>Push 'Verify this message' in the right.</li>
-<li>Then you can see signature verification result in the top of right.</li>
-</ol>
-<h3>Note for signing in the left form.</h3>
-See below when you want to specify message and private key to be signed.
-<ul>
-<li>In the 'PEM RSA Private Key' text area, you can specify
-signer's private key. The format of the key should be
-PKCS#1 PEM text formatted and unencrypted RSA private key.</li>
-</ul>
-
-<h3>Note for signature verification in the right form.</h3>
-See below when you want to specify message,
-signature value and public key certificate to be verified.
-<ul>
-<li>In the 'Verifying Signature' field, you can specify
-any signature value to be verified.
-Signature value should be hexa decimal encoded 'RSASSA-PKCS1-v1_5' signature.
-Currently this supports 'SHA1withRSA' and 'SHA256withRSA' signature algorihtm.
-RSA key length have been tested from 512bit to 2048bit for this program.
-</li>
-<li>
-In the "Signer's Public Key Certificate" field, 
-you can specify signer's public key certificate to be verified.
-The value should be PEM encoded X.509 certificate with RSA public key.
-X.509v1 and X.509v3 is available however X.509v2 is not supported now.
-</li>
-</ul>
-<center>
-Copyright &copy; 2010-2012 Kenji Urushima, All Rights Reserved.
-</center>
-
-<div align="right">
-<a href="index.html">Go back to index</a>
-</div>
-
-<div align="right">
-<a href="http://blog.livedoor.jp/k_urushima/" target="_blank" alt="kjur's blog">
-<img src="http://www9.atwiki.jp/kurushima/pub/icon/icon_livedoor_blog.gif" border="0" width="20"/>
-</a>
-<a href="http://www9.atwiki.jp/kurushima/" target="_blank" alt="kjur's wiki">
-<img src="http://www9.atwiki.jp/kurushima/pub/icon/icon_atwiki.gif" border="0" width="20"/>
-</a>
-<a href="http://twitter.com/kjur/" target="_blank" alt="kjur on twitter">
-<img src="http://www9.atwiki.jp/kurushima/pub/icon/icon_twitter.gif" border="0" width="20"/>
-</a>
-<a href="http://x5.choumusubi.com/bin/gg?069823300">
-<img src="http://x5.choumusubi.com/bin/ll?069823300" border="0" width="20"/>
-</a>
-</div>
 </body>
 </html>
