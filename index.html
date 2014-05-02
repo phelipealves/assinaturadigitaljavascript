@@ -87,10 +87,26 @@
 				</div>
 
 				<div class="content if-decrypt">
+
+					<!-- Chave públic para verificar a assinatura -->
 					<h1>Insira o certificado da chave pública</h1>
 					<h2>Digite a chave pública do assinante para verificar este arquivo. Não será possível verificar sem ela.</h2>
 
-					<textarea id="pubkey" name="pubkey" rows="10" cols="65"></textarea>
+					<textarea id="pubkey" name="pubkey" rows="10" cols="65">
+					-----BEGIN CERTIFICATE-----
+					MIIBvTCCASYCCQD55fNzc0WF7TANBgkqhkiG9w0BAQUFADAjMQswCQYDVQQGEwJK
+					UDEUMBIGA1UEChMLMDAtVEVTVC1SU0EwHhcNMTAwNTI4MDIwODUxWhcNMjAwNTI1
+					MDIwODUxWjAjMQswCQYDVQQGEwJKUDEUMBIGA1UEChMLMDAtVEVTVC1SU0EwgZ8w
+					DQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBANGEYXtfgDRlWUSDn3haY4NVVQiKI9Cz
+					Thoua9+DxJuiseyzmBBe7Roh1RPqdvmtOHmEPbJ+kXZYhbozzPRbFGHCJyBfCLzQ
+					fVos9/qUQ88u83b0SFA2MGmQWQAlRtLy66EkR4rDRwTj2DzR4EEXgEKpIvo8VBs/
+					3+sHLF3ESgAhAgMBAAEwDQYJKoZIhvcNAQEFBQADgYEAEZ6mXFFq3AzfaqWHmCy1
+					ARjlauYAa8ZmUFnLm0emg9dkVBJ63aEqARhtok6bDQDzSJxiLpCEF6G4b/Nv/M/M
+					LyhP+OoOTmETMegAVQMq71choVJyOFE5BtQa6M/lCHEOya5QUfoRF2HF9EjRF44K
+					3OK+u3ivTSj3zwjtpudY5Xo=
+					-----END CERTIFICATE-----
+
+					</textarea>
 					<a class="button continue red">Continuar</a>
 				</div>
 
@@ -114,7 +130,7 @@
 
 				<div class="content if-decrypt">
 					<h1>Insira a assinatura para verificação</h1>
-
+					
 					<textarea id="signature" name="signature" rows="10" cols="65"></textarea>
 					<a class="button check magenta">Verificar!</a>
 				</div>

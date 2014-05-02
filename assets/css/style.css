@@ -263,8 +263,12 @@ body.decrypt #step2{
 	background-color: #E7A8D1;
 }
 
-#step3{
+body.encrypt #step3{
 	background-color:#d5d788;
+}
+
+body.decrypt #step3{
+	background-color:#FFA64D;
 }
 
 #step3 input[type=password]{
@@ -281,6 +285,14 @@ body.decrypt #step2{
 	box-shadow: 3px 3px 0 rgba(0,0,0,0.05);
 	font-size: 20px;
 	color: #555;
+}
+
+body.encrypt #step4{
+	background-color:#AA8CD8;
+}
+
+body.decrypt #step4{
+	background-color:#AAAAAA;
 }
 
 #step4{
@@ -303,7 +315,7 @@ body.decrypt #step2{
 }
 
 #step5{
-	background-color:#aa8cd8;
+	background-color:#26C9FF;
 }
 
 #step1 .content{	margin-top: -140px;}

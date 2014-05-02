@@ -4,6 +4,19 @@ $(function(){
 		stage = $('#stage'),
 		back = $('a.back');
 
+	// arquivo selecionado
+	var _file = null;
+	// arquivo em base-64
+	var _text_file = '';
+
+	// Chave privada
+	var _privateKey = "";
+	// Chave pública
+	var _publicKey = "";
+
+	// Assinatura do arquivo
+	var _signature = "";
+
 	/* Step 1 */
 
 	$('#step1 .encrypt').click(function(){
@@ -19,8 +32,7 @@ $(function(){
 	});
 
 
-	/* Step 2 */
-	
+	/* Step 2 */	
 
 	$('#step2 .button').click(function(){
 		// Trigger the file browser dialog
@@ -28,10 +40,6 @@ $(function(){
 	});
 
 	// Eventos de seleção do arquivo
-	// arquivo selecionado
-	var file = null;
-	// arquivo em base-64
-	var file_text = '';
 
 	$('#step2').on('change', '#encrypt-input', function(e){
 		// Verifica se um arquivo foi selecionado
@@ -40,10 +48,10 @@ $(function(){
 			return false;
 		}
 
-		file = e.target.files[0];
+		_file = e.target.files[0];
 		// Arquivo deve conter no máximo 1mb
-		if(file.size > 1024*1024){
-			alert('Please choose files smaller than 1mb, otherwise you may crash your browser. \nThis is a known issue. See the tutorial.');
+		if(_file.size > 1024*1024){
+			alert('Selecione um arquivo de no máximo 1mb');
 			return;
 		}
 
@@ -52,10 +60,10 @@ $(function(){
         reader.onload = function(readerEvt) {
             var binaryString = readerEvt.target.result;
             // O método btoa() codifica em base-64.
-            file_text = btoa(binaryString);
+            _text_file = btoa(binaryString);
         };
 
-        reader.readAsBinaryString(file);
+        reader.readAsBinaryString(_file);
 
 		step(3);
 	});
@@ -63,62 +71,76 @@ $(function(){
 	$('#step2').on('change', '#decrypt-input', function(e){
 		// Verifica se um arquivo foi selecionado
 		if(e.target.files.length!=1){
-			alert('Please select a file to decrypt!');
+			alert('Selecione um arquivo para verificar!');
 			return false;
 		}
 
-		file = e.target.files[0];
+		_file = e.target.files[0];
 
 		// Lendo o arquivo em Base64
         var reader = new FileReader();
         reader.onload = function(readerEvt) {
             var binaryString = readerEvt.target.result;
             // O método btoa() codifica em base-64.
-            file_text = btoa(binaryString);
+            _text_file = btoa(binaryString);
         };
 
-        reader.readAsBinaryString(file);
+        reader.readAsBinaryString(_file);
 
 		step(3);
 	});
 
-	/* Step 3 */
-	var privateKey = "";
-	var publicKey = "";
+	/* Step 3 */	
+
 	$('#step3 .continue').click(function(){
 
 		if(body.hasClass('encrypt')){
 			// Chave privada
-			privateKey = $('#prvkey').val();
+			_privateKey = $('#prvkey').val();
 		}
 		else{
 			// Chave pública
-			publicKey = $('#pubkey').val();
+			_publicKey = $('#pubkey').val();
 		}
 
 		step(4);
 	});
 
 	/* Step 4 */
-	var _signature = "";
 
 	$('#step4 a.button.sign').click(function(){
 		// Criando assinatura do arquivo
 		var rsa = new RSAKey();
-		rsa.readPrivateKeyFromPEMString(privateKey);
+		rsa.readPrivateKeyFromPEMString(_privateKey);
+
 		var hashAlg = $("#algorithm").val();
-		var hSig = rsa.signString(file_text, hashAlg);
+		var hSig = rsa.signString(_text_file, hashAlg);
 		_signature = linebrk(hSig, 64);
 
+		// Inserindo o link para download do arquivo da assinatura
 		var a = $('#step5 a.download');
 		a.attr('href', 'data:application/octet-stream,' + _signature);
-		a.attr('download', file.name + '.signature');
+		a.attr('download', _file.name + '.signature');
 		
 		step(5);
 	});
 
+	
 	$('#step4 a.button.check').click(function(){
-		alert($("#algorithm").val());
+		// Verifando assinatura do arquivo
+		_signature = $("#signature").val();
+
+		var x509 = new X509();
+		x509.readCertPEM(_publicKey);
+		var isValid = x509.subjectPublicKeyRSA.verifyString(_text_file, _signature);
+
+		if(isValid){
+			alert("valido");
+		}
+		else{
+			alert("invalido");
+		}
+
 	});
 /*
 	$('a.button.process').click(function(){
