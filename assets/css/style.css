@@ -31,6 +31,21 @@ section, footer, header, aside{
 	display: block;
 }
 
+textarea{
+	background-color: #fff;
+	border: none;
+	padding: 8px 18px;
+	line-height: 1;
+	font: inherit;
+	display: inline-block;
+	outline: none;
+	margin-bottom: 5px;
+	border-radius: 2px;
+	box-shadow: 3px 3px 0 rgba(0,0,0,0.05);
+	font-size: 20px;
+	color: #555;
+}
+
 
 /*-------------------------
 	The main page elements
@@ -186,7 +201,15 @@ body.decrypt .if-decrypt{
 	width:180px;
 }
 
-.button.process{
+.button.sign{
+	width:190px;
+}
+
+.button.check{
+	width:190px;
+}
+
+.button.continue{
 	width:190px;
 }
 
@@ -206,7 +229,15 @@ body.decrypt .if-decrypt{
 	background-position: -240px 0;
 }
 
-.button.process::before{
+.button.sign::before{
+	background-position: -142px 0;
+}
+
+.button.check::before{
+	background-position: -142px 0;
+}
+
+.button.continue::before{
 	background-position: -142px 0;
 }
 
@@ -248,11 +279,30 @@ body.decrypt #step2{
 	margin-bottom: 18px;
 	border-radius: 2px;
 	box-shadow: 3px 3px 0 rgba(0,0,0,0.05);
-	font-size: 36px;
+	font-size: 20px;
 	color: #555;
 }
 
 #step4{
+	background-color:#aa8cd8;
+}
+
+#step4 select{
+	background-color: #fff;
+	border: none;
+	padding: 8px 18px;
+	line-height: 1;
+	font: inherit;
+	display: inline-block;
+	outline: none;
+	margin-bottom: 5px;
+	border-radius: 2px;
+	box-shadow: 3px 3px 0 rgba(0,0,0,0.05);
+	font-size: 20px;
+	color: #555;
+}
+
+#step5{
 	background-color:#aa8cd8;
 }
 
