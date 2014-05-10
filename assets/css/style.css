@@ -217,6 +217,16 @@ body.decrypt .if-decrypt{
 	width:216px;
 }
 
+.button.cardreader{
+	width:190px;	
+}
+
+.button.cardreader::before{
+	background: url(../img/appbar.usb.drive.svg) no-repeat;
+	background-size: 32px 32px;
+	color: white;
+}
+
 .button.encrypt::before{
 	background-position: 0 0;
 }
@@ -230,15 +240,15 @@ body.decrypt .if-decrypt{
 }
 
 .button.sign::before{
-	background-position: -142px 0;
+	background-position: 0 0;
 }
 
 .button.check::before{
-	background-position: -142px 0;
+	background-position: -96px 0;
 }
 
 .button.continue::before{
-	background-position: -142px 0;
+	background-position: 0 0;
 }
 
 .button.download:before{
