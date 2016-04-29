@@ -1,0 +1,410 @@
+/*-------------------------
+	Simple reset
+--------------------------*/
+
+
+*{
+	margin:0;
+	padding:0;
+}
+
+
+/*-------------------------
+	General Styles
+--------------------------*/
+
+
+html{
+	overflow:hidden;
+}
+
+a, a:visited {
+	outline:none;
+	color:#389dc1;
+}
+
+a:hover{
+	text-decoration:none;
+}
+
+section, footer, header, aside{
+	display: block;
+}
+
+textarea{
+	background-color: #fff;
+	border: none;
+	padding: 8px 18px;
+	line-height: 1;
+	font: inherit;
+	display: inline-block;
+	outline: none;
+	margin-bottom: 5px;
+	border-radius: 2px;
+	box-shadow: 3px 3px 0 rgba(0,0,0,0.05);
+	font-size: 20px;
+	color: #555;
+}
+
+
+/*-------------------------
+	The main page elements
+--------------------------*/
+
+
+body{
+	font:15px/1.3 'Raleway', sans-serif;
+	color: #fff;
+	width:100%;
+	height:100%;
+	position:absolute;
+	overflow:hidden;
+}
+
+#stage{
+	width:100%;
+	height:100%;
+	position:absolute;
+	top:0;
+	left:0;
+
+	transition:top 0.4s;
+}
+
+#stage > div{  /* The step divs */
+	height:100%;
+	position:relative;
+}
+
+
+#stage h1{
+	font-weight:normal;
+	font-size:48px;
+	text-align:center;
+	color:#fff;
+	margin-bottom:60px;
+}
+
+#stage h2{
+	font-weight: normal;
+	font-size: 14px;
+	font-family: Arial, Helvetica, sans-serif;
+	margin: -40px 0 45px;
+	font-style: italic;
+}
+
+.content{
+	position:absolute;
+	text-align:center;
+	left:0;
+	top:50%;
+	width:100%;
+}
+
+.content input[type=file]{
+	display:none;
+}
+
+a.back{
+	width: 32px;
+	height: 32px;
+	background: url('../img/icons.svg') no-repeat -192px 0;
+	position: absolute;
+	cursor: pointer;
+	top: 50px;
+	left: 50%;
+	z-index: 10;
+	opacity: 0.8;
+	margin-left: -16px;
+	display:none;
+}
+
+a.back:hover{
+	opacity:1;
+}
+
+
+/*-------------------------
+	Conditional classes
+--------------------------*/
+
+
+[class*="if-"]{
+	display:none;
+}
+
+body.encrypt .if-encrypt{
+	display:block;
+}
+
+body.decrypt .if-decrypt{
+	display:block;
+}
+
+
+/*-------------------------
+	Button styles
+--------------------------*/
+
+
+.button{
+	width:300px;
+	height:70px;
+	text-align:center;
+	text-decoration: none !important;
+	color:#fff !important;
+	text-transform: uppercase;
+	font-weight: bold;
+	border-radius:1px;
+	display:block;
+	line-height:70px;
+	box-shadow:3px 3px 0 rgba(0,0,0,0.08);
+	cursor: pointer;
+	font-size:18px;
+	margin:10px auto;
+	opacity:0.9;
+}
+
+.button:hover{
+	opacity:1;
+}
+
+.button::before{
+	content:'';
+	background: url(../img/icons.svg) no-repeat;
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	vertical-align: middle;
+	padding-right: 13px;
+}
+
+.button.green{
+	background-color:#92cd84;
+}
+
+.button.magenta{
+	background-color:#e661b7;
+}
+
+.button.blue{
+	background-color:#798dd7;
+}
+
+.button.red{
+	background-color: #c15645;
+}
+
+/* Styles for specific buttons */
+
+.button.browse{
+	width:180px;
+}
+
+.button.sign{
+	width:190px;
+}
+
+.button.check{
+	width:190px;
+}
+
+.button.continue{
+	width:190px;
+}
+
+.button.download{
+	width:216px;
+}
+
+.button.cardreader{
+	width:190px;	
+}
+
+.button.cardreader::before{
+	background: url(../img/appbar.usb.drive.svg) no-repeat;
+	background-size: 32px 32px;
+	color: white;
+}
+
+.button.encrypt::before{
+	background-position: 0 0;
+}
+
+.button.decrypt::before{
+	background-position: -96px 0;
+}
+
+.button.browse::before{
+	background-position: -240px 0;
+}
+
+.button.sign::before{
+	background-position: 0 0;
+}
+
+.button.check::before{
+	background-position: -96px 0;
+}
+
+.button.continue::before{
+	background-position: 0 0;
+}
+
+.button.download:before{
+	background-position:-48px 0;
+}
+
+
+/*-------------------------
+	The steps
+--------------------------*/
+
+
+#step1{
+	background-color:#75c0d1;
+}
+
+body.encrypt #step2{
+	background-color: #9ad58c;
+}
+
+body.decrypt #step2{
+	background-color: #E7A8D1;
+}
+
+body.encrypt #step3{
+	background-color:#d5d788;
+}
+
+body.decrypt #step3{
+	background-color:#FFA64D;
+}
+
+#step3 input[type=password]{
+	background-color: #fff;
+	border: none;
+	padding: 8px 18px;
+	line-height: 1;
+	font: inherit;
+	display: inline-block;
+	outline: none;
+	width: 400px;
+	margin-bottom: 18px;
+	border-radius: 2px;
+	box-shadow: 3px 3px 0 rgba(0,0,0,0.05);
+	font-size: 20px;
+	color: #555;
+}
+
+body.encrypt #step4{
+	background-color:#AA8CD8;
+}
+
+body.decrypt #step4{
+	background-color:#AAAAAA;
+}
+
+#step4{
+	background-color:#aa8cd8;
+}
+
+#step4 select{
+	background-color: #fff;
+	border: none;
+	padding: 8px 18px;
+	line-height: 1;
+	font: inherit;
+	display: inline-block;
+	outline: none;
+	margin-bottom: 5px;
+	border-radius: 2px;
+	box-shadow: 3px 3px 0 rgba(0,0,0,0.05);
+	font-size: 20px;
+	color: #555;
+}
+
+#step5{
+	background-color:#26C9FF;
+}
+
+#step1 .content{	margin-top: -140px;}
+#step2 .content{	margin-top:-110px;}
+#step3 .content{	margin-top: -157px;}
+#step4 .content{	margin-top: -100px;}
+
+
+/*----------------------------
+	The Demo Footer
+-----------------------------*/
+
+
+footer{
+
+	width: 770px;
+	font: normal 16px Arial, Helvetica, sans-serif;
+	padding: 15px 35px;
+	position: fixed;
+	bottom: 0;
+	left: 50%;
+	margin-left: -420px;
+
+	background-color:#1f1f1f;
+	background-image:linear-gradient(to bottom, #1f1f1f, #101010);
+
+	border-radius:2px 2px 0 0;
+	box-shadow: 0 -1px 4px rgba(0,0,0,0.4);
+	z-index:1;
+}
+
+footer a.tz{
+	font-weight:normal;
+	font-size:16px !important;
+	text-decoration:none !important;
+	display:block;
+	margin-right: 300px;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+	color:#bfbfbf !important;
+	z-index:1;
+}
+
+footer a.tz:before{
+	content: '';
+	background: url('http://cdn.tutorialzine.com/misc/enhance/v2_footer_bg.png') no-repeat 0 -53px;
+	width: 138px;
+	height: 20px;
+	display: inline-block;
+	position: relative;
+	bottom: -3px;
+}
+
+footer .close{
+	position: absolute;
+	cursor: pointer;
+	width: 8px;
+	height: 8px;
+	background: url('http://cdn.tutorialzine.com/misc/enhance/v2_footer_bg.png') no-repeat 0 0px;
+	top:10px;
+	right:10px;
+	z-index: 3;
+}
+
+footer #tzine-actions{
+	position: absolute;
+	top: 8px;
+	width: 500px;
+	right: 50%;
+	margin-right: -650px;
+	text-align: right;
+	z-index: 2;
+}
+
+footer #tzine-actions iframe{
+	display: inline-block;
+	height: 21px;
+	width: 95px;
+	position: relative;
+	float: left;
+	margin-top: 11px;
+}

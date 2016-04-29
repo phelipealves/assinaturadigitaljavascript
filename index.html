@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8"/>
+		<title>Assinatura Digital via JavaScript</title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<link href="http://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet" />
+		<link href="assets/css/style.css" rel="stylesheet" />
+
+		<script language="JavaScript" type="text/javascript" src="jsrsasign/ext/jsbn.js"></script>
+		<script language="JavaScript" type="text/javascript" src="jsrsasign/ext/jsbn2.js"></script>
+		<script language="JavaScript" type="text/javascript" src="jsrsasign/ext/rsa.js"></script>
+		<script language="JavaScript" type="text/javascript" src="jsrsasign/ext/rsa2.js"></script>
+		<script language="JavaScript" type="text/javascript" src="jsrsasign/ext/base64.js"></script>
+
+		<!-- for crypto.js -->
+		<script src="http://yui.yahooapis.com/2.9.0/build/yahoo/yahoo-min.js"></script>
+		<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/core.js"></script>
+		<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/md5.js"></script>
+		<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/sha1.js"></script>
+		<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/sha256.js"></script>
+		<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/ripemd160.js"></script>
+		<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/x64-core.js"></script>
+		<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/sha512.js"></script>
+
+		<script language="JavaScript" type="text/javascript" src="jsrsasign/rsapem-1.1.js"></script>
+		<script language="JavaScript" type="text/javascript" src="jsrsasign/rsasign-1.2.js"></script>
+		<script language="JavaScript" type="text/javascript" src="jsrsasign/asn1hex-1.1.js"></script>
+		<script language="JavaScript" type="text/javascript" src="jsrsasign/x509-1.1.js"></script>
+		<script language="JavaScript" type="text/javascript" src="jsrsasign/crypto-1.1.js"></script>
+
+	</head>
+
+	<body>
+
+		<a class="back"></a>
+
+		<div id="stage">
+
+			<div id="step1">
+				<div class="content">
+					<h1>Assinatura Digital via JavaScript</h1>
+					<a class="button encrypt green">Assinar um arquivo</a>
+					<a class="button decrypt magenta">Verificar assinatura</a>
+				</div>
+			</div>
+
+			<div id="step2">
+
+				<div class="content if-encrypt">				
+
+					<!-- Selecionar o arquivo -->
+					<h1>Escolha um arquivo para assinar</h1>
+					<h2>Uma cópia assinada do arquivo será gerado. Nenhum dado é enviado para o nosso servidor.</h2>
+					<a class="button browse blue">Selecionar</a>
+
+					<input type="file" id="encrypt-input" />
+				</div>
+
+				<div class="content if-decrypt">
+					<h1>Escolha o arquivo para verificar</h1>
+					<h2>Apenas arquivos assinados serão aceitos.</h2>
+					<a class="button browse blue">Selecionar</a>
+
+					<input type="file" id="decrypt-input" />
+				</div>
+
+			</div>
+
+			<div id="step3">				
+
+				<div class="content if-encrypt">					
+
+					<!-- Chave privada de assinatura -->
+					<h1>Insira a chave privada</h1>
+					<h2>Esta chave vai ser utilizada para a assinatura do documento.</h2>
+					
+					<a class="button cardreader green">Ler cartão</a>
+				</div>
+
+				<div class="content if-decrypt">
+
+					<!-- Chave pública para verificar a assinatura -->
+					<h1>Insira a chave pública</h1>
+					<h2>Digite a chave pública do assinante para verificar este arquivo. Não será possível verificar sem ela.</h2>
+
+					<textarea id="pubkey" name="pubkey" rows="4" cols="35"></textarea>
+
+					<a class="button continue red">Continuar</a>
+				</div>
+
+			</div>
+
+			<div id="step4">
+
+				<div class="content if-encrypt">
+					<!-- Algoritimo de assinatura -->					
+					<h1>Selecione o algoritmo de assinatura</h1>			
+					
+					<select id="algorithm" name="hashalg">
+						<option value="sha1" selected>SHA1
+						<option value="sha256">SHA256
+						<option value="sha512">SHA512
+						<option value="md5">MD5
+						<option value="ripemd160">RIPEMD-160
+					</select>
+					<a class="button sign green">Assinar!</a>
+				</div>
+
+				<div class="content if-decrypt">
+					<h1>Selecione o arquivo com assinatura</h1>
+					<a class="button browse blue">Selecionar</a>
+
+					<input type="file" id="signature-input" />
+				</div>
+
+			</div>
+
+			<div id="step5">
+				<div class="content if-encrypt">
+					<h1>Seu arquivo foi assinado!</h1>
+					<h2>Baixe a assinatura do arquivo!</h2>
+					<a class="button download green">Download</a>
+				</div>
+
+				<div class="content if-decrypt">
+					<div id="verification"></div>
+				</div>
+
+			</div>
+
+		</div>
+
+	</body>
+
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="assets/js/script.js"></script>
+
+</html>
