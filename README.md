@@ -24,7 +24,7 @@ Passos da aplicação
 	* **(Assinar)** Insira a chave privada
 	* **(Verificar)** Insira a chave pública
 	  * Poderá ser inserida a chave Pública no campo de texto.
-	* **(Assinar e Verificar)** Poderá ser selecionada as chaves padrões do sistema, salvas em arquivos locais. Simulando uma leitura de um cartão, pan drive ou discos com assinatura de hardware.
+	* **(Assinar e Verificar)** Poderá ser selecionada as chaves padrões do sistema, salvas em arquivos locais. Simulando uma leitura de um cartão, pen drive ou discos com assinatura de hardware.
 	* **(Para esse item deve ser observado que a iteração do javascript com o hardware depende de outras aplicações rodando no computador do cliente para a leitura da chave privada. Uma solução possível seria a criação de uma aplicação nativa no cliente que se comunicasse com os dispositivos e disponibilizasse uma porta de acesso para o javascript ex:localhost:2406, sendo que cada vez que fosse realizado uma requisição nessa porta pelo javascript, essa aplicação iria realizar a leitura dos dispositivos e retornar a string contendo a chave).**
 	
 * Passo 4 
