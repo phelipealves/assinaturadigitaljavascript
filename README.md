@@ -2,7 +2,11 @@ Assinatura Digital JavaScript
 ===========================
 Assinatura Digital via JavaScript
 
+<<<<<<< HEAD
 Demonstração [Demo](http://invisiblerails.com/signature/)
+=======
+Demonstração [Demo](http://phelipealves.github.io/assinaturadigitaljavascript/)
+>>>>>>> master
 
 * Motivação: portais que produzem informações sigilosas ou que exigem a assinatura digital de quem produz a informação em questão, podem se beneficiar do emprego de JavaScript para execução de tais operações e, desta forma, desobrigar a instalação de plug-in para a realização de tais operações.
 * Usar recurso como jsrasign (http://kjur.github.io/jsrsasign/) ou equivalente pode ser empregado para este trabalho.
