@@ -1,6 +1,6 @@
 Assinatura Digital JavaScript
 ===========================
-Assinatura Digital via JavaScript
+Baseado no projeto [JavaScript File Encryption App](http://tutorialzine.com/2013/11/javascript-file-encrypter/)
 
 Demonstração [Demo](http://phelipealves.github.io/assinaturadigitaljavascript/)
 
